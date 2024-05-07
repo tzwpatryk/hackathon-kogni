@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="col-lg-8  offset-lg-2">
+        <h2 class="mt-5">CAMERA APP</h2>
+        <img src="{{ url_for('mentee_live_gaze') }}" height="50%" id="eyecontact">
+        <!-- <p>Center frames detected: {{ center_frames }}</p> -->
+    </div>
+</div>
+{% endblock %}

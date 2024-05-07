@@ -1,16 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8  offset-lg-2">
+<div>
+    <a href="/mentee/live/emotions"><button>Emotions</button></a>
+</div>
 
-			
-            <h2 class="mt-5">CAMERA APP by Hemanth Nag</h2>
-			<form method="post" action="{{ url_for('tasks') }}">
-			<input type="submit" value="Stop/Start" name="stop" />
-			</form>
-            <img src="{{ url_for('mentee_live') }}" height="50%">
-        </div>
-    </div>
+<div>
+    <a href="/mentee/live/eyecontact"><button>Eye contact</button></a>
 </div>
 {% endblock %}
