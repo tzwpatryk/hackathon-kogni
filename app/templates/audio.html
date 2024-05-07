@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Guess What's in the Image</h1>
-    <img src="{{ url_for('static', filename=image_path) }}" alt="Image to Guess">
-    <form id="guess-form" action="/game" method="POST">
+    <h1>Guess What's in the Sound</h1>
+    <audio controls>
+        <source src="{{ url_for('static', filename=audio_path) }}" type="audio/mpeg">
+        Twoja przeglądarka nie obsługuje odtwarzacza audio w formacie HTML5.
+    </audio>
+    <form id="guess-form" action="/audio" method="POST">
         {% for emotion in emotions %}
         <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
         <label for="{{ emotion }}">{{ emotion }}</label><br>
@@ -13,4 +16,5 @@
     <a>{{ score }}</a>
     <a>{{ counter }}</a>
     <a>{{ correct_emotion }}</a>
+    <a>{{ audio_path }}</a>
 {% endblock %}
