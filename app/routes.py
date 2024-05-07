@@ -1,4 +1,4 @@
-from flask import ender_template, request, session, Response, redirect, url_for
+from flask import render_template, request, session, Response, redirect, url_for
 from app import app
 from patryk.live_functions import get_frames, get_gaze
 import cv2
@@ -39,8 +39,6 @@ def tasks():
         app.logger.info('moj tekst')
         return render_template('mentee_live_eyes.html')
     return render_template('mentee_live_eyes.html')
-
-    return Response(get_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/game_menu')
 def game_menu():
