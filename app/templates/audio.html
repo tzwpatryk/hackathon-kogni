@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Guess What's in the Sound</h1>
+    <audio controls>
+        <source src="{{ url_for('static', filename=audio_path) }}" type="audio/mpeg">
+        Twoja przeglądarka nie obsługuje odtwarzacza audio w formacie HTML5.
+    </audio>
+    <form id="guess-form" action="/audio" method="POST">
+        {% for emotion in emotions %}
+        <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
+        <label for="{{ emotion }}">{{ emotion }}</label><br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <a>{{ score }}</a>
+    <a>{{ counter }}</a>
+    <a>{{ correct_emotion }}</a>
+    <a>{{ audio_path }}</a>
+{% endblock %}

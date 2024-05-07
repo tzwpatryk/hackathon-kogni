@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Guess What's in the Image</h1>
+    <img src="{{ url_for('static', filename=image_path) }}" alt="Image to Guess">
+    <form id="guess-form" action="/game" method="POST">
+        {% for emotion in emotions %}
+        <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
+        <label for="{{ emotion }}">{{ emotion }}</label><br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <a>{{ score }}</a>
+    <a>{{ counter }}</a>
+    <a>{{ correct_emotion }}</a>
+{% endblock %}
