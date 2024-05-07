@@ -1,7 +1,8 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, Response, redirect, url_for
 from app import app
 import os, random
 from . import game_functions
+from patryk.live_functions import get_frames
 
 @app.route('/')
 @app.route('/index')
@@ -11,6 +12,10 @@ def index():
 @app.route('/mentee')
 def mentee():
     return render_template('mentee.html')
+
+@app.route('/mentee/live')
+def mentee_live():
+    return Response(get_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/game_menu')
 def game_menu():
