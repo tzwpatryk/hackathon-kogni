@@ -1,10 +1,61 @@
 {% extends "base.html" %}
+{% block styles %}
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        text-align: center;
+    }
+    .game_menu {
+        background: #E4C1FF;
+    }
+    .live {
+        background: #A4EBB0;
+    }
+    .kontakt {
+        background: #B6E6F1;
+    }
+    .container div {
+        margin-bottom: 20px;
+        width: 300px; /* Szerokość divów */
+        height: 100px; /* Wysokość divów */
+        border-radius: 28px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .container div a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: #fff;
+        font-size: 24px;
+    }
+</style>
+{% endblock %}
 {% block content %}
-<div>
-    <a href="/game_menu"><button>Practice</button></a>
-</div>
 
+<<<<<<< HEAD
 <div>
     <a href="/mentee/live"><button>Live</button></a>
+=======
+<div class="container">
+    <h2>Menu</h2>
+    <div class="game_menu">
+        <a href="/game_menu">Practice</a>
+    </div>
+    <div class="live">
+        <a href="/live">Live</a>
+    </div>
+    <div class="kontakt">
+        <a href="/#">Kontakt wzrokowy</a>
+    </div>
+>>>>>>> hubert
 </div>
 {% endblock %}

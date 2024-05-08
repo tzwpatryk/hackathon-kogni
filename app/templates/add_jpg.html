@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    form div {
+        margin-bottom: 10px;
+    }
+
+    #image-input, #label-select {
+        border: 2px solid #FFB884;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    button[type="submit"] {
+        background-color: #FFB884;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #FFA14D;
+    }
+    .guardian_back {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .guardian_back a {
+        background-color: #CCCCCC;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>ADD PHOTO</h1>
+    <form action="/add_jpg" method="post" enctype="multipart/form-data">
+        <div>
+            <input type="file" name="image" id="image-input" accept="image/*">
+        </div>
+        <div>
+            <select name="label" id="label-select">
+                <option value="" disabled selected>Select Label</option>
+                {% for emotion in emotions %}
+                    <option value="{{ emotion }}">{{ emotion }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit">Upload</button>
+        </div>
+    </form>
+    <div class="guardian_back">
+        <a href="/guardian">Back to Guardian</a>
+    </div>
+</div>
+{% endblock %}
+

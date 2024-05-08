@@ -5,26 +5,31 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh; /* Ustawienie minimalnej wysokości na całą wysokość ekranu */
         margin: 0;
+        position: relative; /* Ustawienie pozycji rodzica dla guardian_back */
     }
+
     .container {
         text-align: center;
+        margin-bottom: 50px; /* Dodatkowy margines na dół */
     }
+
     .container div {
         margin-bottom: 20px;
         width: 300px; /* Szerokość divów */
         height: 100px; /* Wysokość divów */
         border-radius: 28px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
 
+    .add_jpg,
+    .report,
+    .specs,
+    .articles {
+        background: #B6E6F1;
     }
-    .guardian {
-        background: #FF9A84;
-    }
-    .mentee {
-        background: #CB89FF;
-    }
+
     .container div a {
         display: flex;
         justify-content: center;
@@ -35,17 +40,26 @@
         color: #fff;
         font-size: 24px;
     }
+
 </style>
 {% endblock %}
 {% block content %}
+
 <div class="container">
-    <h2>I am a...</h2>
-    <div class="guardian">
-        <a href="/guardian">Guardian</a>
+    <h2>Menu</h2>
+    <div class="add_jpg">
+        <a href="/add_jpg">Add photos</a>
     </div>
-    <div class="mentee">
-        <a href="/mentee">Mentee</a>
+    <div class="report">
+        <a href="/#">Report</a>
+    </div>
+    <div class="specs">
+        <a href="/#">Specialists</a>
+    </div>
+    <div class="articles">
+        <a href="/#">Articles</a>
     </div>
 </div>
+
 
 {% endblock %}

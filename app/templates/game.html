@@ -1,16 +1,103 @@
 {% extends "base.html" %}
+{% block styles %}
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+.image {
+    width: 300px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.emotions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.emotion {
+    width: calc(50% - 10px);
+    height: 50px;
+    background-color: #E4C1FF;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.emotion label {
+    font-size: 16px;
+    cursor: pointer;
+    padding-left: 25px;
+    position: relative;
+    color: #fff;
+}
+
+.emotion label:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: #E4C1FF;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.emotion input[type="radio"] {
+    display: none;
+}
+
+.emotion input[type="radio"]:checked + label:before {
+    background-color: #CB89FF;
+}
+
+.submit-button {
+    margin-top: 20px;
+    background-color: #E4C1FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #CB89FF;
+}
+
+</style>
+{% endblock %}
 {% block content %}
-    <h1>Guess What's in the Image</h1>
-    <img src="{{ url_for('static', filename=image_path) }}" alt="Image to Guess">
-    <form id="guess-form" action="/game" method="POST">
-        {% for emotion in emotions %}
-        <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
-        <label for="{{ emotion }}">{{ emotion }}</label><br>
-        {% endfor %}
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    <a>{{ score }}</a>
-    <a>{{ counter }}</a>
-    <a>{{ correct_emotion }}</a>
+    <div class="container">
+        <h1>Guess What's in the Image</h1>
+        <img src="{{ url_for('static', filename=image_path) }}" alt="Image to Guess" class="image">
+        <form id="guess-form" action="/game" method="POST">
+            <div class="emotions">
+                {% for emotion in emotions %}
+                <div class="emotion">
+                    <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
+                    <label for="{{ emotion }}">{{ emotion }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <br>
+            <input type="submit" value="Submit" class="submit-button">
+        </form>
+    </div>
 {% endblock %}

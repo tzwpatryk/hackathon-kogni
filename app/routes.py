@@ -2,7 +2,7 @@ from flask import render_template, request, Response, redirect, url_for
 from app import app
 from patryk.live_functions import get_frames, get_gaze
 import cv2
-import random
+import random, os
 from . import game_functions
 from transformers import pipeline
 
@@ -16,10 +16,45 @@ sesja = {"counter": 0, "score": 0}
 
 sesja_audio = {"counter": 0, "score": 0}
 
+emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
+images_used = []
+images_per_game = 3
+
+sesja = {"counter": 0, "score": 0}
+sesja_audio = {"counter": 0, "score": 0}
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/guardian')
+def guardian():
+    return render_template("guardian.html")
+
+@app.route('/add_jpg', methods=['GET', 'POST'])
+def add_jpg():
+    if request.method == 'POST':
+        if 'image' not in request.files:
+            return redirect(request.url)
+        image = request.files['image']
+        if image.filename == '':
+            return redirect(request.url)
+        if image:
+            label = request.form['label']
+            filename = image.filename
+            if os.path.exists(f"app/static/img/{label}_1.jpg"):
+                i = 1
+                while os.path.exists(f"app/static/img/{label}_{i}.jpg"):
+                    i += 1
+                filename = f"{label}_{i}.jpg"
+            else:
+                filename = f"{label}_1.jpg"
+            current_dir = os.getcwd()
+            image.save(os.path.join("app", "static", "img", filename))
+            return redirect(url_for('add_jpg'))
+    return render_template("add_jpg.html", emotions=emotions)
+
 
 @app.route('/mentee')
 def mentee():
@@ -63,13 +98,21 @@ def mentee_live_textclassification():
 def game_menu():
     return render_template('game_menu.html')
 
+
+emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
+images_used = []
+images_per_game = 3
+sesja = {"counter": 0, "score": 0}
+
+sesja_audio = {"counter": 0, "score": 0}
+
 @app.route('/game', methods=['GET', 'POST'])
 def game():
     global sesja
     global correct_emotion
 
     if sesja_audio['counter'] >= images_per_game:
-        return redirect(url_for('new_game'))  # Przekierowanie do rozpoczęcia nowej gry
+        return redirect(url_for('new_game')) 
 
     if request.method == 'POST':
         user_answer = request.form.get('user_answer')
@@ -87,7 +130,7 @@ def game():
         images_used.append(random_thing)
         
         image_path = f'img/{random_thing}'
-        fourth_option = random_thing.split(".")[0]
+        fourth_option = random_thing.split("_")[0]
         random_emotions = random.sample(emotions, 3)
         random_emotions.append(fourth_option)
         random.shuffle(random_emotions)

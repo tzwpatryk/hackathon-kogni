@@ -1,20 +1,124 @@
 {% extends "base.html" %}
+{% block styles %}
+<style>
+    .audio-container {
+        width: 100%;
+        height: auto;
+        background: #FFFDFD;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+        margin-bottom: 20px;
+        text-align: center; /* Wycentrowanie tekstu i elementów */
+        display: flex;
+        justify-content: center; /* Wycentrowanie poziome */
+        align-items: center; /* Wycentrowanie pionowe */
+    }
+
+    .audio-container audio {
+        border-radius: 30px;
+    }
+
+    .audio-container source {
+        display: block; /* Aby źródło audio zajmowało pełną szerokość */
+    }
+
+    h1 {
+        text-align: center; /* Wycentrowanie tekstu */
+        color: #333; /* Kolor tekstu */
+    }
+
+    .submit-button {
+        margin-top: 20px;
+        background-color: #E4C1FF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block; /* Aby przycisk był pełną szerokością */
+        margin: 0 auto; /* Wycentrowanie przycisku */
+    }
+
+    .submit-button:hover {
+        background-color: #CB89FF;
+    }
+
+    .emotions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .emotion {
+        width: calc(50% - 10px); /* Szerokość elementu z emocją */
+        height: 50px; /* Wysokość elementu z emocją */
+        background: #E4C1FF; /* Kolor tła elementu z emocją */
+        margin: 5px; /* Odstęp między elementami z emocją */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 28px; /* Zaokrąglenie krawędzi */
+    }
+
+    .emotion input[type="radio"] {
+        display: none; /* Ukryj domyślne kółko */
+    }
+
+    .emotion label {
+        font-size: 16px; /* Rozmiar tekstu */
+        cursor: pointer; /* Zmiana kursora na wskaźnik */
+        padding: 10px 20px; /* Wewnętrzny odstęp */
+        color: white;
+    }
+
+    .mentee_back {
+        text-align: center; /* Wycentrowanie przycisku */
+        margin-top: 20px; /* Margines na górze */
+    }
+
+    .mentee_back a {
+        background-color: #CCCCCC;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    /* Dodatkowy styl dla głównego kontenera */
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+{% endblock %}
 {% block content %}
+<div class="container">
     <h1>Guess What's in the Sound</h1>
-    <audio controls>
-        <source src="{{ url_for('static', filename=audio_path) }}" type="audio/mpeg">
-        Twoja przeglądarka nie obsługuje odtwarzacza audio w formacie HTML5.
-    </audio>
+    <div class="audio-container">
+        <audio controls>
+            <source src="{{ url_for('static', filename=audio_path) }}" type="audio/mpeg">
+            Twoja przeglądarka nie obsługuje odtwarzacza audio w formacie HTML5.
+        </audio>
+    </div>
     <form id="guess-form" action="/audio" method="POST">
-        {% for emotion in emotions %}
-        <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
-        <label for="{{ emotion }}">{{ emotion }}</label><br>
-        {% endfor %}
+        <div class="emotions">
+            {% for emotion in emotions %}
+            <div class="emotion">
+                <input type="radio" id="{{ emotion }}" name="user_answer" value="{{ emotion }}">
+                <label for="{{ emotion }}">{{ emotion }}</label>
+            </div>
+            {% endfor %}
+        </div>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="submit-button">
     </form>
-    <a>{{ score }}</a>
-    <a>{{ counter }}</a>
-    <a>{{ correct_emotion }}</a>
-    <a>{{ audio_path }}</a>
+</div>
+<div class="mentee_back">
+    <a href="/mentee">Back to Mentee</a>
+</div>
 {% endblock %}
