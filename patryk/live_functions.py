@@ -2,8 +2,6 @@ import time
 import cv2
 from deepface import DeepFace
 from GazeTracking.gaze_tracking import GazeTracking
-from urllib.parse import urlparse, urlunparse
-
 
 def get_frames():
     camera = cv2.VideoCapture(0)
@@ -15,6 +13,8 @@ def get_frames():
             result = DeepFace.analyze(frame, actions=['emotion'])
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = faceCascade.detectMultiScale(gray, 1.1, 4)
+            if len(faces) > 1:
+                faces = [max(faces, key=lambda rect: rect[2] * rect[3])]
             for (x, y, w, h) in faces:
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
             font = cv2.FONT_HERSHEY_SIMPLEX
