@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <div class="col-lg-8  offset-lg-2">
-        <h2 class="mt-5">CAMERA APP</h2>
-        <img src="{{ url_for('mentee_live_gaze') }}" height="50%" id="eyecontact">
-        <a href="/mentee/live/eyecontact/score"><button>Show score</button></a>
-    </div>
+<div>
+    <h2>CAMERA APP</h2>
+    <img src="{{ url_for('mentee_live_gaze') }}" height="50%">
+    <a href="/mentee/live/eyecontact/score"><button>Show score</button></a>
 </div>
 {% endblock %}

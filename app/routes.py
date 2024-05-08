@@ -1,12 +1,20 @@
-from flask import render_template, request, session, Response, redirect, url_for
+from flask import render_template, request, Response, redirect, url_for
 from app import app
 from patryk.live_functions import get_frames, get_gaze
 import cv2
-import os, random
+import random
 from . import game_functions
+from transformers import pipeline
 
 camera = cv2.VideoCapture(0)
+text_classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=True)
 
+emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
+images_used = []
+images_per_game = 3
+sesja = {"counter": 0, "score": 0}
+
+sesja_audio = {"counter": 0, "score": 0}
 
 @app.route('/')
 @app.route('/index')
@@ -46,18 +54,14 @@ def mentee_live_eyecontact_score():
         loaded_value = file.readline().strip()
     return render_template('mentee_live_eyes_score.html', score=loaded_value)
 
+@app.route('/mentee/live/textclassification')
+def mentee_live_textclassification():
+    # dodaj uzycie klasyfikatora tekstu
+    return render_template('mentee_live_textclassification.html')
 
 @app.route('/game_menu')
 def game_menu():
     return render_template('game_menu.html')
-
-
-emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
-images_used = []
-images_per_game = 3
-sesja = {"counter": 0, "score": 0}
-
-sesja_audio = {"counter": 0, "score": 0}
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
