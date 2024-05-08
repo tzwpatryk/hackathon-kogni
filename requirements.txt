@@ -1,0 +1,15 @@
+cmake==3.29.2
+deepface==0.0.91
+dlib==19.16.0
+Flask==3.0.2
+Flask-WTF==1.2.1
+matplotlib==3.8.4
+matplotlib-inline==0.1.7
+numpy==1.26.4
+opencv-python==4.9.0.80
+Pillow==9.3.0
+requests==2.31.0
+tf_keras==2.16.0
+torch==2.4.0.dev20240325
+transformers==4.40.2
+WTForms==3.1.2
