@@ -50,7 +50,6 @@ def add_jpg():
                 filename = f"{label}_{i}.jpg"
             else:
                 filename = f"{label}_1.jpg"
-            current_dir = os.getcwd()
             image.save(os.path.join("app", "static", "img", filename))
             return redirect(url_for('add_jpg'))
     return render_template("add_jpg.html", emotions=emotions)
