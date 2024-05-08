@@ -1,14 +1,48 @@
 {% extends "base.html" %}
+{% block styles %}
+<style>
+    .container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .menu-option {
+        background: #CB89FF;
+        border-radius: 28px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        width: 300px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .menu-option a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 24px;
+    }
+
+
+</style>
+{% endblock %}
 {% block content %}
-<div>
-    <a href="/game"><button>Obraz</button></a>
+<div class="container">
+    <h2>Menu</h2>
+    <div class="menu-option">
+        <a href="/game">Practice</a>
+    </div>
+    <div class="menu-option">
+        <a href="/audio">Audio</a>
+    </div>
 </div>
 
-<div>
-    <a href="/audio"><button>Audio</button></a>
-</div>
-
-<div>
-    <a href="#"><button>Kontakt/dialog</button></a>
-</div>
 {% endblock %}
