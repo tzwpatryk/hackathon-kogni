@@ -83,8 +83,11 @@ def game():
         
         image_path = f'img/{random_thing}'
         fourth_option = random_thing.split("_")[0]
-        random_emotions = random.sample(emotions, 3)
-        random_emotions.append(fourth_option)
+        while True:
+            random_emotions = random.sample(emotions, 3)
+            if fourth_option not in random_emotions:
+                random_emotions.append(fourth_option)
+                break
         random.shuffle(random_emotions)
 
         correct_emotion = fourth_option
@@ -105,7 +108,7 @@ def audio():
     global correct_emotion
 
     if sesja_audio['counter'] >= images_per_game:
-        return redirect(url_for('new_audio'))  # Przekierowanie do rozpoczęcia nowej gry
+        return redirect(url_for('new_audio')) 
 
     if request.method == 'POST':
         user_answer = request.form.get('user_answer')
@@ -124,8 +127,11 @@ def audio():
         
         image_path = f'sounds/{random_thing}'
         fourth_option = random_thing.split(".")[0]
-        random_emotions = random.sample(emotions, 3)
-        random_emotions.append(fourth_option)
+        while True:
+            random_emotions = random.sample(emotions, 3)
+            if fourth_option not in random_emotions:
+                random_emotions.append(fourth_option)
+                break
         random.shuffle(random_emotions)
 
         correct_emotion = fourth_option
