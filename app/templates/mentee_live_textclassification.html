@@ -1,11 +1,63 @@
 {% extends "base.html" %}
+{% block styles %}
+<style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+    
+        input[type="text"] {
+            border: 2px solid #CB89FF;
+            padding: 8px;
+        }
+    
+        input[type="submit"] {
+            border: 2px solid #CB89FF;
+            background-color: #CB89FF;
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        input[type="submit"]:hover {
+            background-color: #a55bd7; 
+        }
+        .mentee_back {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .mentee_back a {
+        background-color: #CCCCCC;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-decoration: none;
+    }
+</style>
+    
+{% endblock %}
 {% block content %}
-<div>
+<div class="container">
     <form action="/mentee/live/textclassification" method="POST">
         <input type="text" name="user_input">
         <input type="submit" value="Submit">
     </form>
     <p>{{ user_input }}</p>
     <p>{{ results }}</p>
+    <div class="mentee_back">
+        <a href="/mentee">Back to Mentee</a>
+    </div>
 </div>
 {% endblock %}
