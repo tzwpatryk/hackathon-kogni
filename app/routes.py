@@ -1,12 +1,12 @@
 from flask import render_template, request, Response, redirect, url_for
 from app import app
-#from patryk.live_functions import get_frames #, get_gaze
+from patryk.live_functions import get_frames, get_gaze
 import cv2
 import random, os
 from . import game_functions
 from transformers import pipeline
 
-#camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(0)
 text_classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=True)
 
 emotions = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
@@ -64,24 +64,24 @@ def mentee():
 def mentee_live():
     return render_template('mentee_live.html')
 
-# @app.route('/mentee/live/emotions')
-# def mentee_live_emotions(): 
-#     return Response(get_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/mentee/live/emotions')
+def mentee_live_emotions(): 
+    return Response(get_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# @app.route('/mentee/live/eyecontact')
-# def mentee_live_eyecontact():
-#     return render_template('mentee_live_eyes.html')
+@app.route('/mentee/live/eyecontact')
+def mentee_live_eyecontact():
+    return render_template('mentee_live_eyes.html')
 
-# @app.route('/mentee/live/gaze')
-# def mentee_live_gaze():
-#     return Response(get_gaze(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/mentee/live/gaze')
+def mentee_live_gaze():
+    return Response(get_gaze(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# @app.route('/requests',methods=['GET'])
-# def tasks():
-#     if request.method=='GET':
-#         app.logger.info('moj tekst')
-#         return render_template('mentee_live_eyes.html')
-#     return render_template('mentee_live_eyes.html')
+@app.route('/requests',methods=['GET'])
+def tasks():
+    if request.method=='GET':
+        app.logger.info('moj tekst')
+        return render_template('mentee_live_eyes.html')
+    return render_template('mentee_live_eyes.html')
 
 @app.route('/mentee/live/eyecontact/score')
 def mentee_live_eyecontact_score():
