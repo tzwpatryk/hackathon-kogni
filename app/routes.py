@@ -89,9 +89,19 @@ def mentee_live_eyecontact_score():
         loaded_value = file.readline().strip()
     return render_template('mentee_live_eyes_score.html', score=loaded_value)
 
-@app.route('/mentee/live/textclassification')
+@app.route('/mentee/live/textclassification', methods=['GET', 'POST'])
 def mentee_live_textclassification():
-    # dodaj uzycie klasyfikatora tekstu
+    if request.method == 'POST':
+        user_input = request.form.get('user_input')
+        results = text_classifier(user_input)
+        max_score = 0
+        max_label = ""
+        for entry in results[0]:
+            if entry['score'] > max_score:
+                max_score = entry['score']
+                max_label = entry['label']
+        result_text = f"The most probable emotion is {max_label} with a score of {max_score*100:.2f}%"
+        return render_template('mentee_live_textclassification.html', user_input=f"Your text: {user_input}", results=result_text)
     return render_template('mentee_live_textclassification.html')
 
 @app.route('/game_menu')
