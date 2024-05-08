@@ -40,6 +40,13 @@ def tasks():
         return render_template('mentee_live_eyes.html')
     return render_template('mentee_live_eyes.html')
 
+@app.route('/mentee/live/eyecontact/score')
+def mentee_live_eyecontact_score():
+    with open('app/static/texts/gaze.txt', 'r') as file:
+        loaded_value = file.readline().strip()
+    return render_template('mentee_live_eyes_score.html', score=loaded_value)
+
+
 @app.route('/game_menu')
 def game_menu():
     return render_template('game_menu.html')

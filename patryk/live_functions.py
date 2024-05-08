@@ -2,6 +2,7 @@ import time
 import cv2
 from deepface import DeepFace
 from GazeTracking.gaze_tracking import GazeTracking
+import os
 
 def get_frames():
     camera = cv2.VideoCapture(0)
@@ -66,4 +67,6 @@ def get_gaze(camera):
         if time.time() > start_time + timeout:
             camera.release()
             break
-    return center_frames / total_frames
+    
+    with open('app/static/texts/gaze.txt', 'w') as f:
+        f.write(f'{center_frames/total_frames*100:.2f}%')
